@@ -4,7 +4,7 @@ import io.resch.basicrestapi.controller.utils.CachedRole
 import io.resch.basicrestapi.service.ApiUserService
 import org.springframework.security.core.context.SecurityContextHolder
 
-class BaseController(protected val userService: ApiUserService) {
+open class BaseController(protected val userService: ApiUserService) {
     private val cache = mutableMapOf<String, CachedRole>()
 
     private val roles: CachedRole

@@ -1,8 +1,12 @@
-import io.resch.basicrestapi.auth.JWTAuthorizationFilter
+package io.resch.basicrestapi.auth
+
 import io.resch.basicrestapi.auth.SecurityConstants.LOGIN_URL
+import io.resch.basicrestapi.auth.SecurityConstants.SIGN_UP_URL
 import org.springframework.context.annotation.Bean
+import org.springframework.context.annotation.Configuration
 import org.springframework.http.HttpMethod
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder
+import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity
 import org.springframework.security.config.annotation.web.builders.HttpSecurity
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter
@@ -13,24 +17,15 @@ import org.springframework.web.cors.CorsConfiguration
 import org.springframework.web.cors.CorsConfigurationSource
 import org.springframework.web.cors.UrlBasedCorsConfigurationSource
 
+@Configuration
 @EnableWebSecurity
-class WebSecurity : WebSecurityConfigurerAdapter {
-
-    private val userDetailsService: UserDetailsServiceImpl
-    private val bCryptPasswordEncoder: BCryptPasswordEncoder
-
-    constructor(
-            userDetailsService: UserDetailsServiceImpl,
-            bCryptPasswordEncoder: BCryptPasswordEncoder
-    ) : super() {
-        this.userDetailsService = userDetailsService
-        this.bCryptPasswordEncoder = bCryptPasswordEncoder
-    }
+@EnableGlobalMethodSecurity(securedEnabled = true)
+class WebSecurity(private val userDetailsService: UserDetailsServiceImpl, private val bCryptPasswordEncoder: BCryptPasswordEncoder) : WebSecurityConfigurerAdapter() {
 
     @Throws(Exception::class)
     override fun configure(http: HttpSecurity) {
         http.cors().and().csrf().disable().authorizeRequests()
-                //.antMatchers(HttpMethod.POST, SIGN_UP_URL).permitAll()
+                .antMatchers(HttpMethod.POST, SIGN_UP_URL).permitAll()
                 .antMatchers(HttpMethod.POST, LOGIN_URL).permitAll()
                 .anyRequest().authenticated()
                 .and()
