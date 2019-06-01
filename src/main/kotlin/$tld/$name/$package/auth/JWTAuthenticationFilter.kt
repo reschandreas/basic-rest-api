@@ -3,11 +3,11 @@ package $tld.$name.$package.auth
 import com.auth0.jwt.JWT
 import com.auth0.jwt.algorithms.Algorithm.HMAC512
 import com.fasterxml.jackson.databind.ObjectMapper
-import $tld.$domain.$package.auth.SecurityConstants.EXPIRATION_TIME
-import $tld.$domain.$package.auth.SecurityConstants.HEADER_STRING
-import $tld.$domain.$package.auth.SecurityConstants.SECRET
-import $tld.$domain.$package.auth.SecurityConstants.TOKEN_PREFIX
-import $tld.$domain.$package.model.ApiUser
+import $tld.$name.$package.auth.SecurityConstants.EXPIRATION_TIME
+import $tld.$name.$package.auth.SecurityConstants.HEADER_STRING
+import $tld.$name.$package.auth.SecurityConstants.SECRET
+import $tld.$name.$package.auth.SecurityConstants.TOKEN_PREFIX
+import $tld.$name.$package.model.ApiUser
 import org.springframework.security.authentication.AuthenticationManager
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken
 import org.springframework.security.core.Authentication
