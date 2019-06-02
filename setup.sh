@@ -1,29 +1,28 @@
 #!/usr/bin/env bash
+# Author: Andreas Resch <andreas@resch.io>
 
 set -o errexit
 
-echo -n "Enter the packagename (e.q. com.domain): "
+echo -n "Enter your domainname (e.g. domain.com): "
 read domain
 echo -n "Enter name of the project: "
 read project
 
+#removing all non alphanumeric characters for the package name
 package=$(echo $project | sed 's/[^[:alnum:]]//g')
 
+# Creating a random string for signing the JWT Tokens
 secret=$(cat /dev/urandom | LC_ALL=C tr -dc 'a-zA-Z0-9' | fold -w 64 | head -n 1)
 
-tld="$(echo $domain | cut -d'.' -f1)"
-name="$(echo $domain | cut -d'.' -f2)"
+tld="$(echo $domain | cut -d'.' -f2)"
+name="$(echo $domain | cut -d'.' -f1)"
 
-mv './src/main/kotlin/$tld/$name/$package' "./src/main/kotlin/\$tld/\$name/${package}"
-mv './src/main/kotlin/$tld/$name' "./src/main/kotlin/\$tld/${name}"
-mv './src/main/kotlin/$tld' "./src/main/kotlin/${tld}"
-mv './src/test/kotlin/$tld/$name/$package' "./src/test/kotlin/\$tld/\$name/${package}"
-mv './src/test/kotlin/$tld/$name' "./src/test/kotlin/\$tld/${name}"
-mv './src/test/kotlin/$tld' "./src/test/kotlin/${tld}"
+for dir in main test; do
+  mv "./src/${dir}/kotlin/\$tld/\$name/\$package" "./src/${dir}/kotlin/\$tld/\$name/${package}"
+  mv "./src/${dir}/kotlin/\$tld/\$name" "./src/${dir}/kotlin/\$tld/${name}"
+  mv "./src/${dir}/kotlin/\$tld" "./src/${dir}/kotlin/${tld}"
+done
 
-find . -type f ! -name '*.sh' -not -path "*.git*" -print0 | LC_ALL=C xargs -0 sed -i '' -e "s/\$tld/${tld}/g"
-find . -type f ! -name '*.sh' -not -path "*.git*" -print0 | LC_ALL=C xargs -0 sed -i '' -e "s/\$domain/${domain}/g"
-find . -type f ! -name '*.sh' -not -path "*.git*" -print0 | LC_ALL=C xargs -0 sed -i '' -e "s/\$project/${project}/g"
-find . -type f ! -name '*.sh' -not -path "*.git*" -print0 |LC_ALL=C xargs -0 sed -i '' -e "s/\$name/${name}/g"
-find . -type f ! -name '*.sh' -not -path "*.git*" -print0 | LC_ALL=C xargs -0 sed -i '' -e "s/\$package/${package}/g"
-find . -type f ! -name '*.sh' -not -path "*.git*" -print0 | LC_ALL=C xargs -0 sed -i '' -e "s/\$secret/${secret}/g"
+for var in tld domain project name package secret; do
+  find . -type f ! -name '*.sh' -not -path "*.git*" -print0 | LC_ALL=C xargs -0 sed -i '' -e "s/\$${var}/${!var}/g"
+done
