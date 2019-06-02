@@ -1,11 +1,11 @@
-package io.resch.basicrestapi
+package $tld.$name.$package
 
 import org.springframework.boot.autoconfigure.SpringBootApplication
 import org.springframework.boot.runApplication
 
 @SpringBootApplication
-class BasicRestApiApplication
+class Application
 
 fun main(args: Array<String>) {
-    runApplication<BasicRestApiApplication>(*args)
+    runApplication<Application>(*args)
 }

@@ -1,4 +1,4 @@
-package io.resch.basicrestapi
+package $tld.$name.$package
 
 import org.junit.Test
 import org.junit.runner.RunWith
@@ -7,7 +7,7 @@ import org.springframework.test.context.junit4.SpringRunner
 
 @RunWith(SpringRunner::class)
 @SpringBootTest
-class BasicRestApiApplicationTests {
+class ApplicationTests {
 
     @Test
     fun contextLoads() {
