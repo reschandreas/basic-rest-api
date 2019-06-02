@@ -7,7 +7,7 @@ read domain
 echo -n "Enter name of the project: "
 read project
 
-git clone --depth 1 git@github.com:reschandreas/basic-rest-api.git $project
+git clone --depth 1 https://github.com/reschandreas/basic-rest-api.git $project
 
 cd $project
 
@@ -31,3 +31,6 @@ for var in tld domain project name package secret; do
 done
 
 rm -rf .git
+rm README.md
+rm setup.sh
+rm -- "$0"
