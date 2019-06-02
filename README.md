@@ -5,5 +5,6 @@ the process of creating a new project.
 
 - Download the setup script and run it
 ```
-bash <(wget -qO- https://raw.githubusercontent.com/reschandreas/basic-rest-api/master/setup.sh)
+wget https://raw.githubusercontent.com/reschandreas/basic-rest-api/master/setup.sh
+bash ./setup.sh
 ```

@@ -30,3 +30,5 @@ done
 for var in tld domain project name package secret; do
   find . -type f ! -name '*.sh' -not -path "*.git*" -print0 | LC_ALL=C xargs -0 sed -i '' -e "s/\$${var}/${!var}/g"
 done
+
+rm -rf .git
