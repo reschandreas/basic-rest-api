@@ -1,12 +1,16 @@
 #!/usr/bin/env bash
 # Author: Andreas Resch <andreas@resch.io>
-
 set -o errexit
 
 echo -n "Enter your domainname (e.g. domain.com): "
 read domain
 echo -n "Enter name of the project: "
 read project
+
+git clone --depth 1 git@github.com:reschandreas/basic-rest-api.git
+
+mv basic-rest-api $project
+cd $project
 
 #removing all non alphanumeric characters for the package name
 package=$(echo $project | sed 's/[^[:alnum:]]//g')
