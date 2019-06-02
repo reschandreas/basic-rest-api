@@ -7,9 +7,8 @@ read domain
 echo -n "Enter name of the project: "
 read project
 
-git clone --depth 1 git@github.com:reschandreas/basic-rest-api.git
+git clone --depth 1 git@github.com:reschandreas/basic-rest-api.git $project
 
-mv basic-rest-api $project
 cd $project
 
 #removing all non alphanumeric characters for the package name
