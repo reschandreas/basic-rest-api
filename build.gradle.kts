@@ -18,13 +18,16 @@ repositories {
 
 dependencies {
     implementation("org.springframework.boot:spring-boot-starter-data-jpa")
-    implementation("org.springframework.boot:spring-boot-starter-data-rest")
     implementation("org.springframework.boot:spring-boot-starter-jdbc")
     implementation("org.springframework.boot:spring-boot-starter-security")
     implementation("org.springframework.boot:spring-boot-starter-web")
     implementation("org.springframework:spring-webmvc")
     implementation("com.fasterxml.jackson.module:jackson-module-kotlin")
     runtimeOnly("org.postgresql:postgresql")
+
+    implementation("org.jadira.usertype", "usertype.core", "6.0.1.GA")
+    implementation("com.fasterxml.jackson.datatype", "jackson-datatype-joda", "2.10.0.pr1")
+
 
     implementation("com.auth0:java-jwt:3.4.0")
 
