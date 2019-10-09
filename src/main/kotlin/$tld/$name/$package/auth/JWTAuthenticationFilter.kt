@@ -57,6 +57,7 @@ class JWTAuthenticationFilter : UsernamePasswordAuthenticationFilter {
         val token = JWT.create()
                 .withSubject((auth.principal as User).username)
                 .withExpiresAt(expires)
+                .withNotBefore(Date())
                 .sign(HMAC512(SECRET))
         res.addHeader(HEADER_STRING, TOKEN_PREFIX + token)
     }
