@@ -34,4 +34,4 @@ rm -rf .git
 rm README.md
 rm setup.sh
 cd ..
-rm -- "$0"
+rm "$0"
