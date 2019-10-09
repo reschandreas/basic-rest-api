@@ -6,7 +6,6 @@ import $tld.$name.$package.auth.SecurityConstants.EXPIRATION_TIME
 import $tld.$name.$package.auth.SecurityConstants.SECRET
 import $tld.$name.$package.model.ApiUser
 import $tld.$name.$package.model.rest.ResponseUser
-import $tld.$name.$package.repository.ApiUserRepository
 import $tld.$name.$package.service.ApiUserService
 import org.springframework.http.ResponseEntity
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder
@@ -18,21 +17,20 @@ import java.util.*
 
 @RestController
 @RequestMapping("/auth")
-class ApiUserController(private val apiUserRepository: ApiUserRepository,
-                        private val bCryptPasswordEncoder: BCryptPasswordEncoder, userService: ApiUserService) : BaseController(userService) {
+class ApiUserController(private val bCryptPasswordEncoder: BCryptPasswordEncoder, userService: ApiUserService) : BaseController(userService) {
 
     @PostMapping("/sign-up")
     fun signUp(@RequestBody user: ApiUser) {
         //if (super.hasAccess("ADMIN")) {
             user.setPassword(bCryptPasswordEncoder.encode(user.password))
-            apiUserRepository.save(user)
+            userService.save(user)
         //}
     }
 
     @PostMapping("/login")
     @Throws(Exception::class)
     fun login(@RequestBody user: ApiUser): ResponseEntity<ResponseUser> {
-        val requestedUser = user.username?.let { apiUserRepository.findByUsername(it) }
+        val requestedUser = user.username?.let { userService.findByUsername(it) }
                 ?: throw Exception("User not found")
 
         if (requestedUser.isLocked) {
