@@ -30,7 +30,7 @@ class ApiUserController(private val bCryptPasswordEncoder: BCryptPasswordEncoder
     @PostMapping("/login")
     @Throws(Exception::class)
     fun login(@RequestBody user: ApiUser): ResponseEntity<ResponseUser> {
-        val requestedUser = user.username?.let { userService.findByUsername(it) }
+        val requestedUser = user.username?.let { userService.getByUsername(it) }
                 ?: throw Exception("User not found")
 
         if (requestedUser.isLocked) {
