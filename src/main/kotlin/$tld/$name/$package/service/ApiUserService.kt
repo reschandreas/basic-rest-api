@@ -18,7 +18,7 @@ class ApiUserService(private val applicationUserRepository: ApiUserRepository) :
         return user?.roles ?: emptyList()
     }
 
-    fun save(user: ApiUser): Boolean {
+    fun save(user: ApiUser): ApiUser {
         return applicationUserRepository.save(user)
     }
 
