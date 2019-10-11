@@ -52,10 +52,6 @@ class ApiUser : UserDetails {
         this.password = password
     }
 
-    fun setRoles(roles: ArrayList<Role>) {
-        this.roles = roles
-    }
-
     override fun getAuthorities(): Collection<GrantedAuthority> {
         val list = ArrayList<GrantedAuthority>()
 
