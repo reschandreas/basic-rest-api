@@ -1,7 +1,7 @@
 package $tld.$name.$package.auth
 
 internal object SecurityConstants {
-    val SECRET = "$secret"
+    val SECRET = UUID.randomUUID().toString().substring(0,128)
     val EXPIRATION_TIME: Long = 84600
     val TOKEN_PREFIX = "Bearer "
     val HEADER_STRING = "Authorization"
